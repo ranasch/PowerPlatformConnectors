@@ -1,44 +1,126 @@
 {
   "properties": {
     "capabilities": [],
-    "connectionParameters": {
-      "configStoreName": {
-        "type": "string",
-        "uiDefinition": {
-          "constraints": {
-            "required": "true"
-          },
-          "description": "Specify the name of your Azure App Configuration store (without .azconfig.io)",
-          "displayName": "App Configuration Store Name",
-          "tooltip": "Provide your App Configuration store name"
-        }
+    "connectionParameterSets": {
+      "uiDefinition": {
+        "displayName": "Authentication type selection",
+        "description": "Select the type of authentication to use"
       },
-      "token": {
-        "oAuthSettings": {
-          "clientId": "<<Enter your client ID>>",
-          "customParameters": {
-            "loginUri": {
-              "value": "https://login.windows.net"
+      "values": [
+        {
+          "name": "oauthDefault",
+          "uiDefinition": {
+            "displayName": "Default Microsoft Entra ID application for OAuth",
+            "description": "Sign in with your Microsoft Entra ID account."
+          },
+          "parameters": {
+            "configStoreName": {
+              "type": "string",
+              "uiDefinition": {
+                "constraints": {
+                  "required": "true"
+                },
+                "description": "Specify the name of your Azure App Configuration store (without .azconfig.io)",
+                "displayName": "App Configuration Store Name",
+                "tooltip": "Provide your App Configuration store name"
+              }
             },
-            "resourceUri": {
-              "value": "https://azconfig.io"
-            },
-            "tenantId": {
-              "value": "common"
+            "token": {
+              "type": "oauthSetting",
+              "oAuthSettings": {
+                "identityProvider": "aad",
+                "clientId": "<<Enter your client ID>>",
+                "scopes": [],
+                "redirectMode": "Global",
+                "redirectUrl": "https://global.consent.azure-apim.net/redirect",
+                "properties": {
+                  "IsFirstParty": "False"
+                },
+                "customParameters": {
+                  "loginUri": {
+                    "value": "https://login.windows.net"
+                  },
+                  "resourceUri": {
+                    "value": "https://azconfig.io"
+                  },
+                  "tenantId": {
+                    "value": "common"
+                  }
+                }
+              }
             }
-          },
-          "identityProvider": "aad",
-          "properties": {
-            "IsFirstParty": "False"
-          },
-          "redirectMode": "Global",
-          "redirectUrl": "https://global.consent.azure-apim.net/redirect",
-          "scopes": []
+          }
         },
-        "type": "oauthSetting"
-      }
+        {
+          "name": "servicePrincipal",
+          "uiDefinition": {
+            "displayName": "Service Principal Authentication",
+            "description": "Authenticate using an Azure AD service principal."
+          },
+          "parameters": {
+            "configStoreName": {
+              "type": "string",
+              "uiDefinition": {
+                "constraints": {
+                  "required": "true"
+                },
+                "description": "Specify the name of your Azure App Configuration store (without .azconfig.io)",
+                "displayName": "App Configuration Store Name",
+                "tooltip": "Provide your App Configuration store name"
+              }
+            },
+            "token": {
+              "type": "oauthSetting",
+              "oAuthSettings": {
+                "identityProvider": "aad",
+                "clientId": "<<Enter your client ID>>",
+                "scopes": [],
+                "redirectMode": "Global",
+                "redirectUrl": "https://global.consent.azure-apim.net/redirect",
+                "properties": {
+                  "IsFirstParty": "False"
+                },
+                "customParameters": {
+                  "loginUri": {
+                    "value": "https://login.windows.net"
+                  },
+                  "resourceUri": {
+                    "value": "https://azconfig.io"
+                  },
+                  "tenantId": {
+                    "value": "<<Enter your tenant ID>>"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "managedIdentity",
+          "uiDefinition": {
+            "displayName": "Managed Identity",
+            "description": "Authenticate using the managed identity of the Azure resource."
+          },
+          "parameters": {
+            "configStoreName": {
+              "type": "string",
+              "uiDefinition": {
+                "constraints": {
+                  "required": "true"
+                },
+                "description": "Specify the name of your Azure App Configuration store (without .azconfig.io)",
+                "displayName": "App Configuration Store Name",
+                "tooltip": "Provide your App Configuration store name"
+              }
+            },
+            "token": {
+              "type": "managedIdentity"
+            }
+          }
+        }
+      ]
     },
-    "iconBrandColor": "#007ee5",
+    "iconBrandColor": "#0072C6",
     "policyTemplateInstances": [
       {
         "parameters": {

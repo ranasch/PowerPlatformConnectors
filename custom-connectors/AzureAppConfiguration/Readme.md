@@ -11,26 +11,36 @@ You will need the following to proceed:
 * An Azure subscription with an App Configuration store
 * The Power platform CLI tools
 
-## Building the connector
-Since App Configuration APIs are secured by Azure Active Directory (AD), we first need to set up a few things in Azure AD so that our connector can securely access the App Configuration store. After that is completed, you can create and test the sample connector.
+## Authentication types
+The connector supports three authentication types, which can be selected when creating a connection:
 
-### Set up an Azure AD application for your custom connector
-We first need to register our connector as an application in Azure AD. This will allow the connector to identify itself to Azure AD so that it can ask for permissions to access App Configuration data on behalf of the end user. You can read more about this [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/authentication-scenarios) and follow the steps below:
+### Default Microsoft Entra ID application for OAuth
+Sign in with a Microsoft Entra ID (Azure AD) user account. This is the delegated authentication flow – the connection acts on behalf of the signed-in user.
 
-1. Create an Azure AD application
-This Azure AD application will be used to identify the connector to Azure App Configuration. This can be done using [Azure Portal](https://portal.azure.com), by following the steps [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app). Once created, note down the value of Application (Client) ID. You will need this later.
+**Setup steps:**
+1. Register an Azure AD application in the [Azure Portal](https://portal.azure.com) (see [quickstart](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)) and note the Application (Client) ID.
+2. Set the redirect URI to `https://global.consent.azure-apim.net/redirect`.
+3. Add a client secret and note it down – you will need it when deploying the connector.
+4. Grant the **Azure App Configuration** / **user_impersonation** API permission.
+5. Replace `<<Enter your client ID>>` in `apiProperties.json` with your Application (Client) ID.
 
-2. Configure (Update) your Azure AD application to access the Azure App Configuration API
-This step will ensure that your application can successfully retrieve an access token to invoke Azure App Configuration on behalf of your users. To do this, follow the steps [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-configure-app-access-web-apis).
-    - For redirect URI, use "https://global.consent.azure-apim.net/redirect"
-    - For the credentials, use a client secret (and not certificates). Remember to note the secret down, you will need this later and it is shown only once.
-    - For API permissions, make sure "Azure App Configuration" and "user_impersonation" are added.
+**Deploying:**
+```paconn
+paconn create --api-def apiDefinition.swagger.json --api-prop apiProperties.json --secret <client_secret>
+```
 
-At this point, we now have a valid Azure AD application that can be used to get permissions from end users and access Azure App Configuration.
+### Service Principal Authentication
+Authenticate using an Azure AD service principal (application identity). No interactive user sign-in is required.
 
-### Deploying the sample
-Run the following commands and follow the prompts:
+**Setup steps:**
+1. Register an Azure AD application (service principal) in the [Azure Portal](https://portal.azure.com) and note the Application (Client) ID and Tenant ID.
+2. Add a client secret and note it down.
+3. Assign the service principal the **App Configuration Data Reader** role (or a more permissive role) on your App Configuration store.
+4. Replace the following placeholders in `apiProperties.json`:
+   - `<<Enter your client ID>>` with your Application (Client) ID
+   - `<<Enter your tenant ID>>` with your Tenant (Directory) ID
 
+**Deploying:**
 ```paconn
 paconn create --api-def apiDefinition.swagger.json --api-prop apiProperties.json --secret <client_secret>
 ```
