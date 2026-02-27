@@ -1,0 +1,52 @@
+{
+  "properties": {
+    "capabilities": [],
+    "connectionParameters": {
+      "configStoreName": {
+        "type": "string",
+        "uiDefinition": {
+          "constraints": {
+            "required": "true"
+          },
+          "description": "Specify the name of your Azure App Configuration store (without .azconfig.io)",
+          "displayName": "App Configuration Store Name",
+          "tooltip": "Provide your App Configuration store name"
+        }
+      },
+      "token": {
+        "oAuthSettings": {
+          "clientId": "<<Enter your client ID>>",
+          "customParameters": {
+            "loginUri": {
+              "value": "https://login.windows.net"
+            },
+            "resourceUri": {
+              "value": "https://azconfig.io"
+            },
+            "tenantId": {
+              "value": "common"
+            }
+          },
+          "identityProvider": "aad",
+          "properties": {
+            "IsFirstParty": "False"
+          },
+          "redirectMode": "Global",
+          "redirectUrl": "https://global.consent.azure-apim.net/redirect",
+          "scopes": []
+        },
+        "type": "oauthSetting"
+      }
+    },
+    "iconBrandColor": "#007ee5",
+    "policyTemplateInstances": [
+      {
+        "parameters": {
+          "x-ms-apimTemplateParameter.urlTemplate": "https://@connectionParameters('configStoreName').azconfig.io"
+        },
+        "templateId": "dynamichosturl",
+        "title": "Route to App Configuration store"
+      }
+    ]
+  }
+}
