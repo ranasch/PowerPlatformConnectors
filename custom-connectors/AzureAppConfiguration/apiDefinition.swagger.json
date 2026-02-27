@@ -1,0 +1,441 @@
+{
+  "basePath": "/",
+  "consumes": [],
+  "definitions": {},
+  "host": "placeholder.azconfig.io",
+  "info": {
+    "description": "A sample connector for the Azure App Configuration service. This connector is built for the Azure App Configuration REST API. You can see the details of the API here: https://learn.microsoft.com/en-us/azure/azure-app-configuration/rest-api.",
+    "title": "Azure App Configuration [Sample]",
+    "version": "1.0"
+  },
+  "parameters": {},
+  "paths": {
+    "/kv": {
+      "get": {
+        "description": "Gets a list of key-values. Supports filtering by key and label. To list all feature flags, set the key filter to '.appconfig.featureflag/*'. For details, see https://learn.microsoft.com/en-us/rest/api/appconfiguration/data-plane/configuration/get-key-values.",
+        "operationId": "ListKeyValues",
+        "parameters": [
+          {
+            "description": "A filter for the name of the returned key-values. Use '*' as a wildcard.",
+            "in": "query",
+            "name": "key",
+            "required": false,
+            "type": "string",
+            "x-ms-summary": "Key filter"
+          },
+          {
+            "description": "A filter used to match labels. Use '*' to return all labels, or '\\0' for no label.",
+            "in": "query",
+            "name": "label",
+            "required": false,
+            "type": "string",
+            "x-ms-summary": "Label filter"
+          },
+          {
+            "default": "2023-10-01",
+            "in": "query",
+            "name": "api-version",
+            "required": true,
+            "type": "string",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "default",
+            "schema": {
+              "properties": {
+                "items": {
+                  "description": "items",
+                  "items": {
+                    "properties": {
+                      "content_type": {
+                        "description": "content_type",
+                        "type": "string"
+                      },
+                      "etag": {
+                        "description": "etag",
+                        "type": "string"
+                      },
+                      "key": {
+                        "description": "key",
+                        "type": "string"
+                      },
+                      "label": {
+                        "description": "label",
+                        "type": "string"
+                      },
+                      "last_modified": {
+                        "description": "last_modified",
+                        "type": "string"
+                      },
+                      "locked": {
+                        "description": "locked",
+                        "type": "boolean"
+                      },
+                      "tags": {
+                        "description": "tags",
+                        "type": "object"
+                      },
+                      "value": {
+                        "description": "value",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "nextLink": {
+                  "description": "nextLink",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "List key-values"
+      }
+    },
+    "/kv/{key}": {
+      "delete": {
+        "description": "Deletes a key-value. For details, see https://learn.microsoft.com/en-us/rest/api/appconfiguration/data-plane/configuration/delete-key-value.",
+        "operationId": "DeleteKeyValue",
+        "parameters": [
+          {
+            "description": "The key of the key-value to delete.",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Key"
+          },
+          {
+            "description": "The label of the key-value to delete.",
+            "in": "query",
+            "name": "label",
+            "required": false,
+            "type": "string",
+            "x-ms-summary": "Label"
+          },
+          {
+            "default": "2023-10-01",
+            "in": "query",
+            "name": "api-version",
+            "required": true,
+            "type": "string",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "default",
+            "schema": {
+              "properties": {
+                "content_type": {
+                  "description": "content_type",
+                  "type": "string"
+                },
+                "etag": {
+                  "description": "etag",
+                  "type": "string"
+                },
+                "key": {
+                  "description": "key",
+                  "type": "string"
+                },
+                "label": {
+                  "description": "label",
+                  "type": "string"
+                },
+                "last_modified": {
+                  "description": "last_modified",
+                  "type": "string"
+                },
+                "locked": {
+                  "description": "locked",
+                  "type": "boolean"
+                },
+                "tags": {
+                  "description": "tags",
+                  "type": "object"
+                },
+                "value": {
+                  "description": "value",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Delete key-value"
+      },
+      "get": {
+        "description": "Gets a single key-value by key and optional label. For details, see https://learn.microsoft.com/en-us/rest/api/appconfiguration/data-plane/configuration/get-key-value.",
+        "operationId": "GetKeyValue",
+        "parameters": [
+          {
+            "description": "The key of the key-value to retrieve.",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Key"
+          },
+          {
+            "description": "The label of the key-value to retrieve.",
+            "in": "query",
+            "name": "label",
+            "required": false,
+            "type": "string",
+            "x-ms-summary": "Label"
+          },
+          {
+            "default": "2023-10-01",
+            "in": "query",
+            "name": "api-version",
+            "required": true,
+            "type": "string",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "default",
+            "schema": {
+              "properties": {
+                "content_type": {
+                  "description": "content_type",
+                  "type": "string"
+                },
+                "etag": {
+                  "description": "etag",
+                  "type": "string"
+                },
+                "key": {
+                  "description": "key",
+                  "type": "string"
+                },
+                "label": {
+                  "description": "label",
+                  "type": "string"
+                },
+                "last_modified": {
+                  "description": "last_modified",
+                  "type": "string"
+                },
+                "locked": {
+                  "description": "locked",
+                  "type": "boolean"
+                },
+                "tags": {
+                  "description": "tags",
+                  "type": "object"
+                },
+                "value": {
+                  "description": "value",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Get key-value"
+      },
+      "put": {
+        "description": "Creates a new key-value or updates an existing key-value. For details, see https://learn.microsoft.com/en-us/rest/api/appconfiguration/data-plane/configuration/put-key-value.",
+        "operationId": "SetKeyValue",
+        "parameters": [
+          {
+            "description": "The key of the key-value to create or update.",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Key"
+          },
+          {
+            "description": "The label of the key-value to create or update.",
+            "in": "query",
+            "name": "label",
+            "required": false,
+            "type": "string",
+            "x-ms-summary": "Label"
+          },
+          {
+            "default": "2023-10-01",
+            "in": "query",
+            "name": "api-version",
+            "required": true,
+            "type": "string",
+            "x-ms-visibility": "internal"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "properties": {
+                "content_type": {
+                  "description": "The content type of the key-value.",
+                  "type": "string"
+                },
+                "tags": {
+                  "description": "A dictionary of tags associated with the key-value.",
+                  "type": "object"
+                },
+                "value": {
+                  "description": "The value of the key-value.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "default",
+            "schema": {
+              "properties": {
+                "content_type": {
+                  "description": "content_type",
+                  "type": "string"
+                },
+                "etag": {
+                  "description": "etag",
+                  "type": "string"
+                },
+                "key": {
+                  "description": "key",
+                  "type": "string"
+                },
+                "label": {
+                  "description": "label",
+                  "type": "string"
+                },
+                "last_modified": {
+                  "description": "last_modified",
+                  "type": "string"
+                },
+                "locked": {
+                  "description": "locked",
+                  "type": "boolean"
+                },
+                "tags": {
+                  "description": "tags",
+                  "type": "object"
+                },
+                "value": {
+                  "description": "value",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Create or update key-value"
+      }
+    },
+    "/kv/.appconfig.featureflag%2F{feature-name}": {
+      "get": {
+        "description": "Gets a feature flag by name and optional label. Feature flags are stored as key-values with the key prefix '.appconfig.featureflag/'. For details, see https://learn.microsoft.com/en-us/azure/azure-app-configuration/concept-feature-management.",
+        "operationId": "GetFeatureFlag",
+        "parameters": [
+          {
+            "description": "The name of the feature flag to retrieve.",
+            "in": "path",
+            "name": "feature-name",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Feature name"
+          },
+          {
+            "description": "The label of the feature flag to retrieve.",
+            "in": "query",
+            "name": "label",
+            "required": false,
+            "type": "string",
+            "x-ms-summary": "Label"
+          },
+          {
+            "default": "2023-10-01",
+            "in": "query",
+            "name": "api-version",
+            "required": true,
+            "type": "string",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "default",
+            "schema": {
+              "properties": {
+                "content_type": {
+                  "description": "content_type",
+                  "type": "string"
+                },
+                "etag": {
+                  "description": "etag",
+                  "type": "string"
+                },
+                "key": {
+                  "description": "key",
+                  "type": "string"
+                },
+                "label": {
+                  "description": "label",
+                  "type": "string"
+                },
+                "last_modified": {
+                  "description": "last_modified",
+                  "type": "string"
+                },
+                "locked": {
+                  "description": "locked",
+                  "type": "boolean"
+                },
+                "tags": {
+                  "description": "tags",
+                  "type": "object"
+                },
+                "value": {
+                  "description": "The JSON representation of the feature flag definition.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Get feature flag"
+      }
+    }
+  },
+  "produces": [],
+  "responses": {},
+  "schemes": [
+    "https"
+  ],
+  "security": [
+    {
+      "oauth2_auth": []
+    }
+  ],
+  "securityDefinitions": {
+    "oauth2_auth": {
+      "authorizationUrl": "https://login.windows.net/common/oauth2/authorize",
+      "flow": "accessCode",
+      "scopes": {},
+      "tokenUrl": "https://login.windows.net/common/oauth2/token",
+      "type": "oauth2"
+    }
+  },
+  "swagger": "2.0",
+  "tags": []
+}
