@@ -35,6 +35,20 @@ Run the following commands and follow the prompts:
 paconn create --api-def apiDefinition.swagger.json --api-prop apiProperties.json --secret <client_secret>
 ```
 
+### Connector Security setup
+
+When configuring the connector manually in the [Power Automate Portal](https://flow.microsoft.com), use the following values for the OAuth 2.0 security page:
+
+* `Authentication type`: OAuth 2.0
+* `Identity Provider`: Azure Active Directory
+* `Client id`: the application (client) ID from the app registration
+* `Client secret`: the secret from the app registration
+* `Login URL`: https://login.windows.net
+* `Tenant ID`: common
+* `Resource URL`: https://azconfig.io
+* `Refresh URL`: https://login.windows.net/common/oauth2/token
+* `Redirect URL`: https://global.consent.azure-apim.net/redirect
+
 ## Supported Operations
 The connector supports the following operations:
 * `List key-values`: Gets a list of key-values with optional key and label filters (to list all feature flags, use key filter `.appconfig.featureflag/*`)
