@@ -127,6 +127,8 @@
             "name": "api-version",
             "required": true,
             "type": "string",
+            "description": "The API version to use for this operation. The supported value is '2023-10-01'.",
+            "x-ms-summary": "API Version",
             "x-ms-visibility": "internal"
           }
         ],
