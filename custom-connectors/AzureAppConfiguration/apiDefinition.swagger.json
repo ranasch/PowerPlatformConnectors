@@ -273,10 +273,12 @@
           },
           {
             "default": "2023-10-01",
+            "description": "The API version of the Azure App Configuration REST API to use for this operation, such as '2023-10-01'.",
             "in": "query",
             "name": "api-version",
             "required": true,
             "type": "string",
+            "x-ms-summary": "API version",
             "x-ms-visibility": "internal"
           },
           {
