@@ -198,10 +198,12 @@
           },
           {
             "default": "2023-10-01",
+            "description": "The API version to use for this operation. The only supported value is 2023-10-01.",
             "in": "query",
             "name": "api-version",
             "required": true,
             "type": "string",
+            "x-ms-summary": "API version",
             "x-ms-visibility": "internal"
           }
         ],
