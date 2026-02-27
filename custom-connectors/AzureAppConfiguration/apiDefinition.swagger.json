@@ -33,10 +33,12 @@
           },
           {
             "default": "2023-10-01",
+            "description": "Specifies the version of the Azure App Configuration API to use. The expected value is '2023-10-01'.",
             "in": "query",
             "name": "api-version",
             "required": true,
             "type": "string",
+            "x-ms-summary": "API version",
             "x-ms-visibility": "internal"
           }
         ],
