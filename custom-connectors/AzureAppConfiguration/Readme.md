@@ -45,19 +45,6 @@ Authenticate using an Azure AD service principal (application identity). No inte
 paconn create --api-def apiDefinition.swagger.json --api-prop apiProperties.json --secret <client_secret>
 ```
 
-### Managed Identity
-Authenticate using the managed identity of the Azure resource running the workflow (e.g., a Logic App with system-assigned managed identity). No credentials need to be stored.
-
-**Setup steps:**
-1. Enable a system-assigned or user-assigned managed identity on the Azure resource (e.g., Logic App).
-2. Assign the managed identity the **App Configuration Data Reader** role (or a more permissive role) on your App Configuration store.
-3. No changes to `apiProperties.json` are required for this authentication type.
-
-**Deploying:**
-```paconn
-paconn create --api-def apiDefinition.swagger.json --api-prop apiProperties.json
-```
-
 ## Supported Operations
 The connector supports the following operations:
 * `List key-values`: Gets a list of key-values with optional key and label filters (to list all feature flags, use key filter `.appconfig.featureflag/*`)
