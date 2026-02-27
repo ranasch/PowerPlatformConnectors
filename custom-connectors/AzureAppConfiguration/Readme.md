@@ -46,8 +46,15 @@ When configuring the connector manually in the [Power Automate Portal](https://f
 * `Login URL`: https://login.windows.net
 * `Tenant ID`: common
 * `Resource URL`: https://azconfig.io
+* `Scope`: https://azconfig.io/user_impersonation
 * `Refresh URL`: https://login.windows.net/common/oauth2/token
 * `Redirect URL`: https://global.consent.azure-apim.net/redirect
+
+> **Note on Managed Identity**: Power Platform custom connectors do not support Azure Managed Identity directly. Authentication always requires a registered Azure AD application (service principal) with a client ID and client secret as described above.
+>
+> The connector uses OAuth 2.0 delegated permissions (user impersonation), meaning the end user's identity is used to access the App Configuration store.
+>
+> To restrict access, assign the appropriate role (e.g., *App Configuration Data Reader* or *App Configuration Data Owner*) to the Azure AD application in your App Configuration store via Azure RBAC.
 
 ## Supported Operations
 The connector supports the following operations:
