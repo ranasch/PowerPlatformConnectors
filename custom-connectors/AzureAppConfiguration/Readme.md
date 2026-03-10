@@ -45,6 +45,27 @@ Authenticate using an Azure AD service principal (application identity). No inte
 paconn create --api-def apiDefinition.swagger.json --api-prop apiProperties.json --secret <client_secret>
 ```
 
+### Connector Security setup
+
+When configuring the connector manually in the [Power Automate Portal](https://flow.microsoft.com), use the following values for the OAuth 2.0 security page:
+
+* `Authentication type`: OAuth 2.0
+* `Identity Provider`: Azure Active Directory
+* `Client id`: the application (client) ID from the app registration
+* `Client secret`: the secret from the app registration
+* `Login URL`: https://login.windows.net
+* `Tenant ID`: common
+* `Resource URL`: https://azconfig.io
+* `Scope`: https://azconfig.io/user_impersonation
+* `Refresh URL`: https://login.windows.net/common/oauth2/token
+* `Redirect URL`: https://global.consent.azure-apim.net/redirect
+
+> **Note on Managed Identity**: Power Platform custom connectors do not support Azure Managed Identity directly. Authentication always requires a registered Azure AD application (service principal) with a client ID and client secret as described above.
+>
+> The connector uses OAuth 2.0 delegated permissions (user impersonation), meaning the end user's identity is used to access the App Configuration store.
+>
+> To restrict access, assign the appropriate role (e.g., *App Configuration Data Reader* or *App Configuration Data Owner*) to the Azure AD application in your App Configuration store via Azure RBAC.
+
 ## Supported Operations
 The connector supports the following operations:
 * `List key-values`: Gets a list of key-values with optional key and label filters (to list all feature flags, use key filter `.appconfig.featureflag/*`)
